@@ -8,9 +8,12 @@ from selenium.webdriver.chrome.options import Options
 from PIL import Image
 
 
-chrome_options = Options()
-chrome_options.add_argument("–no-sandbox")
-chrome_options.add_argument("–disable-dev-shm-usage")
+options = Options()
+options.add_argument('headless')
+options.add_argument('--disable-infobars')
+options.add_argument('--disable-dev-shm-usage')
+options.add_argument('--no-sandbox')
+options.add_argument('--remote-debugging-port=9222')
 
 
 
@@ -26,7 +29,7 @@ def save_pic(vid_loc):
 def scrape_vid_loc(url):
 
     executable_path = {'executable_path': ChromeDriverManager().install()}
-    browser = Browser('chrome', options=chrome_options, **executable_path, headless=False)
+    browser = webdriver.Chrome(executable_path=executable_path,options=options)
 
     call_return = {}
 
