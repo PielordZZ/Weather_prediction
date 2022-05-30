@@ -5,10 +5,12 @@ import requests
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from PIL import Image
+
+
 chrome_options = Options()
 chrome_options.add_argument("–disable-dev-shm-usage")
-driver = webdriver.Chrome(chrome_options=chrome_options)
-from PIL import Image
+
 
 
 def save_pic(vid_loc):
@@ -23,7 +25,7 @@ def save_pic(vid_loc):
 def scrape_vid_loc(url):
 
     executable_path = {'executable_path': ChromeDriverManager().install()}
-    browser = Browser('chrome', **executable_path, headless=False)
+    browser = Browser('chrome', options=chrome_options **executable_path, headless=False)
 
     call_return = {}
 
