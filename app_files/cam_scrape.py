@@ -3,13 +3,21 @@ from splinter import Browser
 import time
 import requests
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+chrome_options = Options()
+chrome_options.add_argument("–disable-dev-shm-usage")
+driver = webdriver.Chrome(chrome_options=chrome_options)
 from PIL import Image
+
+
 def save_pic(vid_loc):
     img= Image.open(requests.get(vid_loc).content).convert('RGB')
     img_name =vid_loc.split(' ')[0]
     pic_loc =f'/data/{img_name}.jpg'
     img.save(pic_loc,'jpeg')
     return pic_loc
+
 
 
 def scrape_vid_loc(url):
