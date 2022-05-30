@@ -28,8 +28,7 @@ def save_pic(vid_loc):
 
 def scrape_vid_loc(url):
 
-    executable_path = {'executable_path': ChromeDriverManager().install()}
-    browser = webdriver.Chrome(executable_path=executable_path,options=options)
+    browser = webdriver.Chrome(options=options)
 
     call_return = {}
 
