@@ -9,7 +9,9 @@ from PIL import Image
 
 
 chrome_options = Options()
-chrome_options.add_argument("–disable-dev-shm-usage")
+chrome_options.addArguments("–no-sandbox");
+chrome_options.addArguments("–disable-dev-shm-usage");
+chrome_options.setExperimentalOption('useAutomationExtension', False);
 
 
 
