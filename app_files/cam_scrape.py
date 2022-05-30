@@ -32,12 +32,12 @@ def scrape_vid_loc(url):
 
     call_return = {}
 
-    browser.visit(url)
+    browser.get(url)
     time.sleep(1)
 
-    page= browser.html
+    
 
-    soup = bs(page, 'html.parser')
+    soup = bs(browser.page_source, 'html.parser')
 
     video_tags = soup.find_all('video')
 
