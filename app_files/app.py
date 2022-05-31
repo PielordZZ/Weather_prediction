@@ -33,7 +33,7 @@ for pic in pics:
 path ='static/images/'
 for picture in picture_dic.keys():
     picture_file= picture_dic[picture]
-    picture_dropdown = picture_dropdown + f'''<a class="dropdown-item" href="./analysis/{picture}">{picture}</a>'''
+    picture_dropdown = picture_dropdown + f'''<a class="dropdown-item" href="#/analysis/{picture}">{picture}</a>'''
     weather[picture] = weather_predictor.weather_prediction(f'{path}{picture_file}', accuracy= True)
 print(weather)
 
