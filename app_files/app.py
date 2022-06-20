@@ -18,6 +18,7 @@ city_dropdown = ''
 weather ={'default':['',0]}
 img = {'cloudy1':''}
 picture_dropdown = ''
+
 picture_drop2 = ''
 
 for city in names:
@@ -36,6 +37,7 @@ for picture in picture_dic.keys():
     picture_file= picture_dic[picture]
     picture_dropdown = picture_dropdown + f'''<a class="dropdown-item" href="/analysis/{picture}">{picture}</a>'''
     picture_drop2 = picture_drop2 + f'''<a class="dropdown-item" href="/{picture}">{picture}</a>'''
+
     weather[picture] = weather_predictor.weather_prediction(f'{path}{picture_file}', accuracy= True)
 print(weather)
 
@@ -97,7 +99,7 @@ def static_analysis(picture):
         weather = weather[picture][0],
         accuracy=round(weather[picture][1]*100,2),
         citylist=city_dropdown,
-        picture_list=picture_dropdown)
+        picture_list=picture_drop2)
 
 
 
