@@ -1,76 +1,57 @@
-const Upload = () => {
-    return (
-      <div className="Upload" css={CSS}>
-        <div className="inner">
-          <div className="list">
-            <h5>Your Files:</h5>
+import React, { useState } from "react";
+
+const App = () => {
+  const [name, setName] = useState('');
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  const submitForm = () => {  
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("file", selectedFile);
   
-            <ul className="files">{/* file names here. */}</ul>
-          </div>
-  
-          <div className="form">
-            <i className="fa fa-cloud-upload fa-4x"></i>
-            <p>Drag and drop files or select files below.</p>
-            <button>Choose Files</button>
-          </div>
-        </div>
-      </div>
-    )
+    axios
+      .post(UPLOAD_URL, formData)
+      .then((res) => {
+        alert("File Upload success");
+      })
+      .catch((err) => alert("File Upload Error"));
+  };
+
+  return(
+    <div className="App">
+      <form>
+        <input 
+          type = "text" 
+          value={name}
+          onChange={(e) => setName(e.target.value)}/>
+
+        <input 
+          type = "file"
+          value={selectedFile}
+          onChange={(e) => setSelectedFile(e.target.files[0])}
+        />
+        <button onClick={submitForm}>Submit</button>
+      </form>  
+    </div>
+
+  );
+};
+
+const FileUploader = ({onFileSelect}) => {
+  const fileInput = useRef(null)
+
+  const handleFileInput = (e) => {
+    const file = e.target.files[0]
+    // handle validations
+    if (file.size>5120)
+      onFileSelectError({error: 'File is too large to process'});
+    else onFileSelect(file)
   }
-  
-  const CSS = css`
-    height: 100%;
-    width: 100%;
-    background: #0d1117;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 80px;
-    .inner {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-    }
-    .list {
-      background-color: #121d2f;
-      border: 1px solid white;
-      width: 50%;
-      height: 400px;
-      padding: 15px;
-      align-self: start;
-      color: white;
-      margin-right: 80px;
-      ul.files {
-        margin-top: 20px;
-        li {
-          margin-bottom: 5px;
-        }
-        i {
-          color: #58a6ff;
-          padding-left: 8px;
-          cursor: pointer;
-        }
-      }
-    }
-    .form {
-      background-color: #121d2f;
-      width: 50%;
-      padding: 15px;
-      height: 400px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid white;
-      flex-direction: column;
-      margin-left: 80px;
-      i,
-      p {
-        color: white;
-      }
-      button {
-        background: #58a6ff;
-        color: white;
-        border: 1px solid white;
-        padding: 2px 8px;
-      }
-    }
+
+  return (
+      <div className="file-uploader">
+          <input type="file" onChange={handleFileInput}/>
+          <button onClick={e => fileInput.current && fileInput.current.click()} className="btn btn-primary"/>
+      </div>
+  );
+};
